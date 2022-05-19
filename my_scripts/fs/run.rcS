@@ -1,0 +1,7 @@
+cd /home/gem5/parsec-benchmark;
+source env.sh;
+echo "dedup starts :)";
+parsecmgmt -a run -p dedup -c gcc-hooks -i simsmall -n 16;
+echo "dedup ends :)";
+sleep 5;
+m5 exit;
