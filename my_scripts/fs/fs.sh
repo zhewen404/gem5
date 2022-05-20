@@ -38,12 +38,12 @@ fi
 python3 my_scripts/fs/gen_script.py -s ${sim} -c ${core} -b ${benchmark}
 echo "run script generated"
 
-time build/X86/gem5.opt \
--d my_STATS/${benchmark}_${core}_${sim} \
+time gem5/build/X86/gem5.opt \
+-d my_STATS/${benchmark}_${core}_${sim}_{$baseline} \
 configs/example/fs.py \
---kernel ~/.cache/gem5/x86-linux-kernel-4.19.83 \
---disk-image ~/.cache/gem5/x86-parsec \
---script /home/zhewen/repo/gem5-resources/src/parsec/gem5/my_scripts/fs/${benchmark}_${sim}_${core}.rcS \
+--kernel x86-linux-kernel-4.19.83 \
+--disk-image disk-image/parsec/parsec-image/parsec \
+--script gem5/my_scripts/fs/${benchmark}_${sim}_${core}.rcS \
 --ruby \
 --restore-with-cpu TimingSimpleCPU \
 --num-cpus=${core} \
