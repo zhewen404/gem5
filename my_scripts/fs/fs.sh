@@ -14,10 +14,10 @@ if [ $# -lt 1 ]
                 mesh=8
                 baseline=$2
             else
-                sim=$1
-                benchmark=$2
-                mesh=$3
-                baseline=$4
+                sim=$3
+                benchmark=$1
+                mesh=$4
+                baseline=$2
         fi
 fi
 
@@ -32,14 +32,15 @@ if [ $baseline -eq 1 ]
         l2_assoc=8
     else
         l2_size='168kB'
-        l2_assoc=8
+        l2_assoc=10
 fi
 
 python3 my_scripts/fs/gen_script.py -s ${sim} -c ${core} -b ${benchmark}
 echo "run script generated"
+echo "gem5 results will be in my_STATS/${benchmark}_${core}_${sim}_${baseline}"
 
-time build/X86/gem5.opt \
--d my_STATS/${benchmark}_${core}_${sim} \
+time build/X86/gem5.fast \
+-d my_STATS/${benchmark}_${core}_${sim}_${baseline} \
 configs/example/fs.py \
 --kernel ~/.cache/gem5/x86-linux-kernel-4.19.83 \
 --disk-image ~/.cache/gem5/x86-parsec \
